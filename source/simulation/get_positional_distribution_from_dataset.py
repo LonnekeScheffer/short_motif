@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
     log_arguments(args.log_file, args)
 
-    np_sequences, _, _ = read_data_file(args.data_file, use_np_repr=True, calculate_weights=False)
+    np_sequences, _ = read_data_file(args.data_file, use_np_repr=True)
 
     export_positional_distribution(np_sequences, args.output_file)
 
