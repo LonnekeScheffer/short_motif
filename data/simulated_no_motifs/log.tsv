@@ -1,0 +1,12 @@
+log_file='../../data/simulated_data/no_motifs/log.tsv'
+motif_frequencies=[]
+motif_output_file='../../data/simulated_data/no_motifs/motifs.tsv'
+motif_size=3
+n_negative_sequences=25000
+n_positive_sequences=10000
+positional_distribution_file='../../data/simulated_data/positional_distribution_mason.tsv'
+random_seed=2022
+relative_motif_frequencies=[]
+sequence_length=10
+sequences_output_file='../../data/simulated_data/no_motifs/sequences.csv'
+
