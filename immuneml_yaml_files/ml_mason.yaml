@@ -1,0 +1,223 @@
+definitions:
+  datasets:
+    mason:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+        paired: false
+        path: /storage/lonnekes/short_motif/data/mason/train_val_test/training_validation_test.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+        
+  encodings:
+    motif09: 
+      Motif:
+        max_positions: 5
+        min_positions: 4
+        min_recall: 
+          4: 0.0034655371582595304
+          5: 0.002117828263380824
+        min_precision: 0.9
+        min_true_positives: 11
+        generalize_motifs: False
+    
+    motif08: 
+      Motif:
+        max_positions: 5
+        min_positions: 3
+        min_recall: 
+          3: 0.003850596842510589
+          4: 0.0019252984212552945
+          5: 0.0009626492106276473
+        min_precision: 0.8
+        min_true_positives: 5
+        generalize_motifs: False
+    
+    one_hot: OneHot
+    
+    full_seq_hd1:
+      SimilarToPositiveSequence:
+        hamming_distance: 1
+        compairr_path: /storage/lonnekes/short_motif/generalization/compairr/src/compairr
+        ignore_genes: True
+        keep_temporary_files: True
+
+    full_seq_hd2:
+      SimilarToPositiveSequence:
+        hamming_distance: 2
+        compairr_path: /storage/lonnekes/short_motif/generalization/compairr/src/compairr
+        ignore_genes: True
+        keep_temporary_files: True
+
+    full_seq_hd3:
+      SimilarToPositiveSequence:
+        hamming_distance: 3
+        compairr_path: /storage/lonnekes/short_motif/generalization/compairr/src/compairr
+        ignore_genes: True
+        keep_temporary_files: True
+      
+  reports:
+    performance: MLSettingsPerformance
+    coefficients: Coefficients
+    
+    pos_motif_freq:
+      PositionalMotifFrequencies:
+        motif_color_map:
+          3: "#66C5CC"
+          4: "#F6CF71"
+          5: "#F89C74"
+    
+    non_motif_seq_sim: 
+      NonMotifSequenceSimilarity:
+        motif_color_map:
+          3: "#66C5CC"
+          4: "#F6CF71"
+          5: "#F89C74"
+
+    precision_recall_plot: BinaryFeaturePrecisionRecall  
+    
+    motif_performance_test_set:
+      MotifTestSetPerformance:
+        keep_test_dataset: False
+        training_set_name: Mason training+validation set
+        test_set_name: Mason test set
+        test_dataset:
+          format: Generic
+          params:
+            path: /storage/lonnekes/short_motif/data/mason/train_val_test/test.csv
+            region_type: FULL_SEQUENCE
+            separator: ','
+            is_repertoire: False
+            paired: False 
+            metadata_column_mapping:
+              is_binding: is_binding
+            column_mapping:
+              file_column_amino_acids: sequence_aas
+              sequence_identifiers: sequence_identifiers
+            import_empty_aa_sequences: false
+            import_empty_nt_sequences: true
+            import_illegal_characters: false
+
+    motif_performance_mehta_set:
+      MotifTestSetPerformance:
+        keep_test_dataset: False
+        training_set_name: Mason training+validation set
+        test_set_name: Mehta test set
+        test_dataset:
+          format: Generic
+          params:
+            path: /storage/lonnekes/short_motif/data/mehta/train_val_test/mehta_all.csv
+            region_type: FULL_SEQUENCE
+            separator: ','
+            is_repertoire: False
+            paired: False 
+            metadata_column_mapping:
+              is_binding: is_binding
+            column_mapping:
+              file_column_amino_acids: sequence_aas
+              sequence_identifiers: sequence_identifiers
+            import_empty_aa_sequences: false
+            import_empty_nt_sequences: true
+            import_illegal_characters: false  
+
+  ml_methods:
+    logistic_regression: 
+      LogisticRegression:
+        penalty: [l1, l2]
+        C: [0.01, 0.1, 1, 10, 100]
+      model_selection_cv: true
+      model_selection_n_folds: 3
+      
+    all: 
+      BinaryFeatureClassifier:
+        keep_all: True
+        
+    selected: 
+      BinaryFeatureClassifier:
+        max_features: null
+        random_seed: 1
+
+    cnn:
+      KerasSequenceCNN:
+        units_per_layer: [[CONV, 400, 5, 1], [DROP, 0.2], [POOL, 2, 1], [FLAT], [DENSE, 300]]
+        activation: relu
+
+instructions:
+  my_instr:
+    type: TrainMLModel
+
+    dataset: mason
+    labels:
+    - is_binding
+
+    settings:
+      - encoding: motif08
+        ml_method: selected 
+      - encoding: motif08
+        ml_method: all
+      - encoding: motif09
+        ml_method: selected 
+      - encoding: motif09
+        ml_method: all
+      - encoding: one_hot 
+        ml_method: cnn 
+      - encoding: full_seq_hd1 
+        ml_method: all 
+      - encoding: full_seq_hd2
+        ml_method: all 
+      - encoding: full_seq_hd3 
+        ml_method: all 
+      - encoding: motif09
+        ml_method: logistic_regression 
+      - encoding: motif08
+        ml_method: logistic_regression 
+
+
+    assessment:
+      split_strategy: manual
+      split_count: 1
+      manual_config:
+        train_metadata_path: /storage/lonnekes/short_motif/data/mason/train_val_test/training_validation_identifiers.txt
+        test_metadata_path: /storage/lonnekes/short_motif/data/mason/train_val_test/test_identifiers.txt
+      reports:
+        models:
+        - coefficients
+        - precision_recall_plot
+        encoding:
+        - pos_motif_freq
+        - non_motif_seq_sim
+        - motif_performance_test_set
+        - motif_performance_mehta_set
+
+    selection:                
+      split_strategy: manual
+      split_count: 1
+      manual_config:
+        train_metadata_path: /storage/lonnekes/short_motif/data/mason/train_val_test/training_identifiers.txt
+        test_metadata_path: /storage/lonnekes/short_motif/data/mason/train_val_test/validation_identifiers.txt
+        
+    optimization_metric: balanced_accuracy
+    metrics: 
+    - accuracy
+    - precision
+    - recall
+    - auc
+    - F1_MICRO
+    - F1_MaCRO
+    
+    strategy: GridSearch
+    refit_optimal_model: False
+    export_all_ml_settings: True
+
+    reports:
+    - performance
+    
+    number_of_processes: 32

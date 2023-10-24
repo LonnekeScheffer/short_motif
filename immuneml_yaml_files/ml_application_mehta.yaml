@@ -1,0 +1,120 @@
+definitions:
+  datasets:
+    mehta:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+        paired: false
+        path: /storage/lonnekes/short_motif/data/mehta/train_val_test/mehta_all.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+
+instructions:
+  ml_appliation_is_binding_full_seq_hd1_all:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_full_seq_hd1_all/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_full_seq_hd2_all:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_full_seq_hd2_all/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_full_seq_hd3_all:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_full_seq_hd3_all/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_motif09_selected:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_motif09_selected/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_motif09_all:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_motif09_all/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_motif09_logistic_regression:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_motif09_logistic_regression/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_motif08_selected:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_motif08_selected/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_motif08_all:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_motif08_all/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_motif08_logistic_regression:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_motif08_logistic_regression/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall
+  ml_appliation_is_binding_one_hot_cnn_optimal:
+    type: MLApplication
+    dataset: mehta
+    config_path: /storage/lonnekes/short_motif/generalization/manuscript/ml_mason/my_instr/split_1/is_binding_one_hot_cnn_optimal/ml_settings_config/zip/ml_settings_is_binding.zip
+    number_of_processes: 32
+    metrics:
+    - accuracy
+    - balanced_accuracy
+    - precision
+    - recall

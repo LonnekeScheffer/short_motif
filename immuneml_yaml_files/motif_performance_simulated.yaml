@@ -1,0 +1,95 @@
+definitions:
+  datasets:
+    simulated:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+          sequence_identifiers: sequence_identifiers
+        paired: false
+        path: /storage/lonnekes/short_motif/data/simulated/train_val_test/training_validation.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+        
+  encodings:
+    motif: 
+      Motif:
+        max_positions: 5
+        min_positions: 2
+        min_recall: 
+          2: 0.500908540278619
+          3: 0.002826569755703614
+          4: 0.0012113870381586917
+          5: 0.0008075913587724611
+        min_precision: 0.9
+        min_true_positives: 4
+        generalize_motifs: False
+
+  reports:
+    pos_motif_freq: PositionalMotifFrequencies
+    
+    non_motif_seq_sim: NonMotifSequenceSimilarity
+    
+    motif_test_set_peformance:
+      MotifTestSetPerformance:
+        test_dataset:
+          format: Generic
+          params:
+            path: /storage/lonnekes/short_motif/data/simulated/train_val_test/test.csv
+            region_type: FULL_SEQUENCE
+            separator: ','
+            is_repertoire: False
+            paired: False 
+            metadata_column_mapping:
+              is_binding: is_binding
+            column_mapping:
+              file_column_amino_acids: sequence_aas
+              sequence_identifiers: sequence_identifiers
+            import_empty_aa_sequences: false
+            import_empty_nt_sequences: true
+            import_illegal_characters: false
+        highlight_motifs_path: /storage/lonnekes/short_motif/data/simulated/motifs.tsv
+        highlight_motifs_name: Implanted motif
+        training_set_name: simulated training+validation set
+        test_set_name: simulated test set
+    
+    groundtruth_overlap_report:
+      GroundTruthMotifOverlap:
+        groundtruth_motifs_path: /storage/lonnekes/short_motif/generalization/groundtruth_motifs.tsv
+    
+instructions:
+  my_expl_analysis_instruction:
+    analyses:
+      test_set_performance:
+        dataset: simulated
+        encoding: motif
+        report: motif_test_set_peformance
+        labels:
+          - is_binding
+      groundtruth_overlap_analysis:
+        dataset: simulated
+        encoding: motif
+        report: groundtruth_overlap_report
+        labels:
+          - is_binding
+      motif_analysis:
+        dataset: simulated
+        encoding: motif
+        report: pos_motif_freq
+        labels:
+          - is_binding
+      nonmotif_position_analysis:
+        dataset: simulated
+        encoding: motif
+        report: non_motif_seq_sim
+        labels:
+          - is_binding
+    number_of_processes: 16
+    type: ExploratoryAnalysis

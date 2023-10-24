@@ -1,0 +1,81 @@
+definitions:
+  datasets:
+    simulated:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+        paired: false
+        path: /storage/lonnekes/short_motif/data/simulated/train_val_test/training_validation_test.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+
+    mason:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+        paired: false
+        path: /storage/lonnekes/short_motif/data/mason/train_val_test/training_validation_test.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+    
+    mehta:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+        paired: false
+        path: /storage/lonnekes/short_motif/data/mehta/train_val_test/mehta_all.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+
+  reports:
+    aa_dist: 
+      AminoAcidFrequencyDistribution:
+        imgt_positions: False
+        relative_frequency: True
+        split_by_label: True    
+
+instructions:
+  my_expl_analysis_instruction:
+    analyses:
+      aa_dist_simulated:
+        dataset: simulated
+        report: aa_dist
+        labels:
+          - is_binding
+      aa_dist_mason:
+        dataset: mason
+        report: aa_dist
+        labels:
+          - is_binding
+      aa_dist_mehta:
+        dataset: mehta
+        report: aa_dist
+        labels:
+          - is_binding
+
+    number_of_processes: 16
+    type: ExploratoryAnalysis
