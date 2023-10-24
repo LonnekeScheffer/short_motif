@@ -1,0 +1,4 @@
+data_file='../../data/mason/train_val_test/mason_all.csv'
+log_file='../../data/simulated_data/log_positional_distribution_mason.tsv'
+output_file='../../data/simulated_data/positional_distribution_mason.tsv'
+
