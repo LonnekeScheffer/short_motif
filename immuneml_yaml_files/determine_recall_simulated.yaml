@@ -1,0 +1,83 @@
+definitions:
+  datasets:
+    simulated:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+          sequence_identifiers: sequence_identifiers
+        paired: false
+        path: /storage/lonnekes/short_motif/data/simulated/train_val_test/training_validation.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+
+    simulated_no_motifs:
+      format: Generic
+      params:
+        column_mapping:
+          file_column_amino_acids: sequence_aas
+          sequence_identifiers: sequence_identifiers
+        import_empty_aa_sequences: false
+        import_empty_nt_sequences: true
+        import_illegal_characters: false
+        is_repertoire: false
+        metadata_column_mapping:
+          is_binding: is_binding
+          sequence_identifiers: sequence_identifiers
+        paired: false
+        path: /storage/lonnekes/short_motif/data/simulated_no_motifs/train_val_test/training_validation.csv
+        region_type: FULL_SEQUENCE
+        separator: ','
+
+  reports:
+    motif_generalization_highlights: 
+      MotifGeneralizationAnalysis:
+        training_set_identifier_path: /storage/lonnekes/short_motif/data/simulated/train_val_test/training_identifiers.txt
+        max_positions: 5
+        min_precision: 0.9
+        test_precision_threshold: 0.8
+        min_recall: 0
+        min_true_positives: 2
+        test_set_name: validation set
+        split_by_motif_size: true
+        label:
+          is_binding
+        highlight_motifs_path: /storage/lonnekes/short_motif/data/simulated/motifs.tsv
+        highlight_motifs_name: Implanted motif
+
+    motif_generalization_no_highlights: 
+      MotifGeneralizationAnalysis:
+        training_set_identifier_path: /storage/lonnekes/short_motif/data/simulated_no_motifs/train_val_test/training_identifiers.txt
+        max_positions: 5
+        min_precision: 0.9
+        test_precision_threshold: 0.8
+        min_recall: 0
+        min_true_positives: 2
+        test_set_name: validation set
+        split_by_motif_size: true
+        label:
+          is_binding
+
+instructions:
+  my_expl_analysis_instruction:
+    analyses:
+      determine_recall_cutoffs_simulated:
+        dataset: simulated
+        report: motif_generalization_highlights
+        labels:
+          - is_binding
+      determine_recall_cutoffs_simulated_no_motifs:
+        dataset: simulated_no_motifs
+        report: motif_generalization_no_highlights
+        labels:
+          - is_binding
+          
+    number_of_processes: 16
+    type: ExploratoryAnalysis
