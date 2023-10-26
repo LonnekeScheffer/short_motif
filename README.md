@@ -26,6 +26,7 @@ The code for simulating synthetic datasets can be found in the folder [simulatio
 
 Six immuneML runs were performed to generate all manuscript figures and data. 
 The YAML analysis specifications are located in the folder [yaml_files](immuneml_yaml_files).
+The method is first validated using simulated datasets, and thereafter applied to experimental data. 
 
 
 ### Simulated data analysis
@@ -45,7 +46,7 @@ Similarly to the simulated data analysis, a separate immuneML run is first done 
 These thresholds are used as input parameters in the following immuneML run ([ml_mason.yaml](immuneml_yaml_files/ml_mason.yaml)), where several motif-based classifiers, sequence similarity-based classifiers and the CNN by Mason et al. are trained to predict antigen binding on the Mason dataset. This immuneML run furthermore includes the performance of individual learned motifs on the Mason training + validation set. 
 
 Lastly, a separate immuneML run was made to assess the performance of each trained classifier, as well as individual motifs, on the separate Mehta test set ([ml_application_mehta.yaml](immuneml_yaml_files/ml_application_mehta.yaml)). 
-Note that these classifiers and motifs were trained exclusively on the Mason training+validation dataset, not the Mehta dataset. 
+Note that these classifiers and motifs were trained exclusively on the Mason training+validation dataset, not the Mehta dataset. The Mehta set is ecxlusively used as a second test set. 
 
 The positional amino acid distribution of both Mason and Mehta datasets are plotted in a separate immuneML run ([aa_distributions.yaml](immuneml_yaml_files/aa_distributions.yaml)).
 
