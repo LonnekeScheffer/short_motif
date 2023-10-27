@@ -65,12 +65,8 @@ def write_data_splits(args):
 def parse_data_splitting_arguments(args):
     parser = argparse.ArgumentParser()
 
-    # parser.add_argument("--input_file", default="/Users/lonneke/PycharmProjects/rule_based_classifier/data/mason/train_val_test/mason_all.csv")
-    # parser.add_argument("--output_folder", default="/Users/lonneke/PycharmProjects/rule_based_classifier/data/mason/train_val_test")
-    # parser.add_argument("--input_file", default="/Users/lonneke/PycharmProjects/rule_based_classifier/data/simulated_data/skewed_simulation/sequences.csv")
-    # parser.add_argument("--output_folder", default="/Users/lonneke/PycharmProjects/rule_based_classifier/data/simulated_data/skewed_simulation/train_val_test")
-    parser.add_argument("--input_file", default="/Users/lonneke/PycharmProjects/rule_based_classifier/data/simulated_data/no_motifs/sequences.csv")
-    parser.add_argument("--output_folder", default="/Users/lonneke/PycharmProjects/rule_based_classifier/data/simulated_data/no_motifs/train_val_test")
+    parser.add_argument("--input_file", default="../../data/mason/train_val_test/mason_all.csv")
+    parser.add_argument("--output_folder", default="../../data/mason/train_val_test")
 
     parser.add_argument("--add_identifiers", default=True, type=bool)
     parser.add_argument("--training_percentage", default=0.5, type=float)
