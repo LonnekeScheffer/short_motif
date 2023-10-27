@@ -26,6 +26,19 @@ The code for simulating synthetic datasets can be found in the folder [simulatio
 
 Six immuneML runs were performed to generate all manuscript figures and data. 
 The YAML analysis specifications are located in the folder [yaml_files](immuneml_yaml_files).
+The original immuneML results folders (excluding data) can be found at the following doi: [10.5281/zenodo.10047590](https://doi.org/10.5281/zenodo.10047590).
+
+To rerun any of the immuneML analyses, make sure to [install immuneML](https://docs.immuneml.uio.no/latest/installation/install_with_package_manager.html). 
+When applying the CNN proposed by Mason et al., (KerasSequenceCNN in immuneML) please ensure that the dependencies `keras` and `tensorflow` are installed (e.g., version 2.11.0).
+These dependencies are optional for immuneML and are not automatically installed when installing immuneML.
+
+immuneML can be run as follows:
+
+```bash
+immune-ml yaml_file.yaml results_folder
+```
+
+For mode details, see the [immuneML documentation](https://docs.immuneml.uio.no/latest/). 
 
 
 ### Simulated data analysis
